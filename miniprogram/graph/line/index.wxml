@@ -1,0 +1,4 @@
+<!--graph/line/index.wxml-->
+<view class="container">
+	<canvas type="2d" id="myCanvas" bindtouchmove="handleMove" style="border: 1px solid #ccc;height: 200px;width: 350px;"></canvas>
+</view>

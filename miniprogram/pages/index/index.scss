@@ -1,0 +1,28 @@
+.container {
+	margin: 10px;
+
+	.row {
+		display: flex;
+		justify-content: center;
+	}
+
+	.block {
+		border: 1px solid #ccc;
+		width: 8%;
+		aspect-ratio: 1;
+	}
+}
+
+.btns {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 10px;
+	.btn{
+		width: 80rpx;
+		height: 80rpx;
+		text-align: center;
+		line-height: 80rpx;
+		border-radius: 80rpx;
+		border: 1px solid #ccc;
+	}
+}

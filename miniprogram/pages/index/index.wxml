@@ -1,0 +1,14 @@
+<!-- https://jingyan.baidu.com/article/17bd8e52fcaed2c4aa2bb867.html -->
+<view class="container">
+	<view wx:for="{{blocks}}" wx:for-item="row" wx:key="index" class="row">
+		<view wx:for="{{row}}" wx:key="key" class="block" style="background-color: {{item.bg}};">
+			<!-- {{item.key}} -->
+		</view>
+	</view>
+</view>
+<view class="btns">
+	<view class="btn" bind:tap="handleLeft">←</view>
+  <view class="btn" bind:tap="handleTransform">变形</view>
+  <view class="btn" bind:tap="handleDown">↓</view>
+  <view class="btn" bind:tap="handleRight">→</view>
+</view>
