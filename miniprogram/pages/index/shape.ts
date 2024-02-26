@@ -1,3 +1,12 @@
+type Status = 0 | 1 | 2
+interface Block {
+	x: number,
+	y: number,
+	key: string,
+	status: Status,
+	bg: 'red' | '#fff' | 'gray'
+}
+
 interface OriginPoint {
 	x: number
 	y: number
@@ -17,6 +26,7 @@ abstract class Shape {
 	protected formIndex: number = 0
 	zone: Zone = { width: 0, height: 0 }
 	currentForm: number[][] = []
+	// nextDownForm: 
 	active = true
 	constructor(origin: OriginPoint, zone: Zone) {
 		this.origin.x = origin.x
@@ -27,15 +37,22 @@ abstract class Shape {
 	abstract makeForms(): number[][][]
 	abstract checkLeft(): boolean
 	abstract checkRight(): boolean
-	abstract checkDown(): boolean
+	abstract checkTransform(): boolean
+	getNextDownFrom() {
+		const currentForm = this.currentForm
+		const newCurrentForm = currentForm.map(point => {
+			return [point[0], point[1] + 1]
+		})
+		return newCurrentForm
+	}
 	findMinHeightPoint() {
 		const currentForm = this.currentForm
 		let result: number[] = []
 		currentForm.forEach((point, index) => {
-			if(index === 0) {
+			if (index === 0) {
 				result = point
 			} else {
-				if(point[1] > result[1]) {
+				if (point[1] > result[1]) {
 					result = point
 				}
 			}
@@ -84,13 +101,19 @@ class S extends Shape {
 		const form1 = [[x - 1, y - 1], [x - 1, y], [x, y], [x, y + 1]] // 竖着
 		return [form, form1]
 	}
-	checkDown() {
-		const { height } = this.zone 
-		const [x, y] = this.findMinHeightPoint()
-		console.log('最低点：', x, y)
-		console.log(y, height - 1)
-		const active = this.active = y + 1  < height - 1
-		return active
+	checkCollision() {
+
+	}
+	checkTransform() {
+		const formIndex = this.formIndex
+		const { x, y } = this.origin
+		const width = this.zone.width
+		// 竖着 且 贴右边边界
+		if(formIndex === 1 && x === width - 1) {
+			return false
+		}
+		// todo 检查变形是否会和固定下来的元素碰撞
+		return true
 	}
 	checkLeft() {
 		return this.origin.x > 1
@@ -113,5 +136,8 @@ class S extends Shape {
 export type ShapeCollection = S
 
 export {
-	S
+	S,
+
+	Block,
+	Status
 }

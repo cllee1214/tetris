@@ -9,6 +9,7 @@
 <view class="btns">
 	<view class="btn" bind:tap="handleLeft">←</view>
   <view class="btn" bind:tap="handleTransform">变形</view>
+  <view class="btn" bind:tap="handlCreate">生成</view>
   <view class="btn" bind:tap="handleDown">↓</view>
   <view class="btn" bind:tap="handleRight">→</view>
 </view>
