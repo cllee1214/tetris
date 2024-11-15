@@ -11,5 +11,7 @@
   <view class="btn" bind:tap="handleTransform">变形</view>
   <view class="btn" bind:tap="handlCreate">生成</view>
   <view class="btn" bind:tap="handleDown">↓</view>
+  <view class="btn" bind:tap="handleFastDown">↓↓</view>
   <view class="btn" bind:tap="handleRight">→</view>
+	<view class="btn">{{score}}</view>
 </view>

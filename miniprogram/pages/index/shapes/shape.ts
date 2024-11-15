@@ -1,5 +1,7 @@
+import Game from "../game"
+
 type Status = 0 | 1 | 2
-interface Block {
+export interface Block {
 	x: number,
 	y: number,
 	key: string,
@@ -7,11 +9,11 @@ interface Block {
 	bg: 'red' | '#fff' | 'gray'
 }
 
-interface OriginPoint {
+export interface OriginPoint {
 	x: number
 	y: number
 }
-interface Zone {
+export interface Zone {
 	width: number
 	height: number
 }
@@ -26,7 +28,6 @@ abstract class Shape {
 	protected formIndex: number = 0
 	zone: Zone = { width: 0, height: 0 }
 	currentForm: number[][] = []
-	// nextDownForm: 
 	active = true
 	constructor(origin: OriginPoint, zone: Zone) {
 		this.origin.x = origin.x
@@ -34,10 +35,7 @@ abstract class Shape {
 		this.zone.height = zone.height
 		this.zone.width = zone.width
 	}
-	abstract makeForms(): number[][][]
-	abstract checkLeft(): boolean
-	abstract checkRight(): boolean
-	abstract checkTransform(): boolean
+	abstract makeForms(origin: OriginPoint): number[][][]
 	getNextDownFrom() {
 		const currentForm = this.currentForm
 		const newCurrentForm = currentForm.map(point => {
@@ -59,10 +57,48 @@ abstract class Shape {
 		})
 		return result
 	}
+	check(forms: number[][], fixedBlocksMap: Game['fixedBlocksMap']) {
+		return forms.every(item => {
+			const key = item[1] + '-' + item[0]
+			return (item[0] >= 0 && item[0] <= this.zone.width - 1) && (item[1] <= this.zone.height - 1) && (!fixedBlocksMap.get(key))
+		})
+	}
+	checkTransform(fixedBlocksMap: Game['fixedBlocksMap']) {
+		const index = (this.formIndex + 1) > this.forms.length - 1 ? 0 : this.formIndex + 1
+		const currentForm = this.forms[index]
+		return this.check(currentForm, fixedBlocksMap)
+	}
 	transform() {
 		const index = (this.formIndex + 1) > this.forms.length - 1 ? 0 : this.formIndex + 1
 		this.formIndex = index
+		console.log(index)
 		this.currentForm = this.forms[index]
+	}
+	checkMove(direction: Direction, fixedBlocksMap: Game['fixedBlocksMap']) {
+		const origin = {
+			x: this.origin.x,
+			y: this.origin.y,
+		} as OriginPoint
+		switch (direction) {
+			case 'left':
+				origin.x--
+				break;
+			case 'right':
+				origin.x++
+				break;
+			case 'down':
+				origin.y++
+				break;
+			default:
+				break;
+		}
+		const forms = this.makeForms(origin)
+		const next = forms[this.formIndex]
+		return this.check(next, fixedBlocksMap)
+		// return next.every(item => {
+		// 	const key = item[1] + '-' + item[0]
+		// 	return (item[0] >= 0 && item[0] <= this.zone.width - 1) && (item[1] <= this.zone.height - 1) && (!fixedBlocksMap.get(key))
+		// })
 	}
 	move(direction: Direction) {
 		// console.log(this.origin)
@@ -79,8 +115,8 @@ abstract class Shape {
 			default:
 				break;
 		}
-		// 根据新的原点
-		this.forms = this.makeForms()
+		// 根据新的原点生成形状
+		this.forms = this.makeForms(this.origin)
 		this.currentForm = this.forms[this.formIndex]
 	}
 	init() {
@@ -90,54 +126,7 @@ abstract class Shape {
 	}
 }
 
-class S extends Shape {
-	constructor(origin: OriginPoint, zone: Zone) {
-		super(origin, zone)
-		this.forms = this.makeForms()
-	}
-	makeForms() {
-		const { x, y } = this.origin
-		const form = [[x - 1, y + 1], [x, y + 1], [x, y], [x + 1, y]] // 躺着
-		const form1 = [[x - 1, y - 1], [x - 1, y], [x, y], [x, y + 1]] // 竖着
-		return [form, form1]
-	}
-	checkCollision() {
-
-	}
-	checkTransform() {
-		const formIndex = this.formIndex
-		const { x, y } = this.origin
-		const width = this.zone.width
-		// 竖着 且 贴右边边界
-		if(formIndex === 1 && x === width - 1) {
-			return false
-		}
-		// todo 检查变形是否会和固定下来的元素碰撞
-		return true
-	}
-	checkLeft() {
-		return this.origin.x > 1
-	}
-	checkRight() {
-		const { width } = this.zone
-		const { x } = this.origin
-		const formIndex = this.formIndex
-		if (formIndex === 0) {
-			return x < width - 2
-		} else if (formIndex === 1) {
-			return x <= width - 2
-		} else {
-			return true
-		}
-	}
-}
-
-
-export type ShapeCollection = S
-
 export {
-	S,
-
-	Block,
+	Shape,
 	Status
 }
