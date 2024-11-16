@@ -1,33 +1,61 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": [],
-		"include": []
-	},
-	"miniprogramRoot": "miniprogram/",
-	"compileType": "miniprogram",
-	"projectname": "ts-sass-demo",
-	"setting": {
-		"useCompilerPlugins": [
-			"typescript",
-			"sass"
-		],
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"es6": true,
-		"enhance": true
-	},
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {},
-	"srcMiniprogramRoot": "miniprogram/",
-	"appid": "wx52a091e544d4df1c",
-	"libVersion": "3.1.2",
-	"editorSetting": {
-		"tabIndent": "tab",
-		"tabSize": 2
-	}
+    "description": "项目配置文件",
+    "packOptions": {
+        "ignore": [],
+        "include": []
+    },
+    "miniprogramRoot": "miniprogram/",
+    "compileType": "miniprogram",
+    "projectname": "ts-sass-demo",
+    "setting": {
+        "urlCheck": true,
+        "es6": true,
+        "enhance": true,
+        "postcss": true,
+        "preloadBackgroundData": false,
+        "minified": true,
+        "newFeature": false,
+        "coverView": true,
+        "nodeModules": false,
+        "autoAudits": false,
+        "showShadowRootInWxmlPanel": true,
+        "scopeDataCheck": false,
+        "uglifyFileName": false,
+        "checkInvalidKey": true,
+        "checkSiteMap": true,
+        "uploadWithSourceMap": true,
+        "compileHotReLoad": false,
+        "lazyloadPlaceholderEnable": false,
+        "useMultiFrameRuntime": true,
+        "useApiHook": true,
+        "useApiHostProcess": true,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "useIsolateContext": false,
+        "userConfirmedBundleSwitch": false,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
+        "minifyWXSS": true,
+        "disableUseStrict": false,
+        "minifyWXML": true,
+        "showES6CompileOption": false,
+        "useCompilerPlugins": [
+            "typescript",
+            "sass"
+        ],
+        "ignoreUploadUnusedFiles": true
+    },
+    "simulatorType": "wechat",
+    "simulatorPluginLibVersion": {},
+    "srcMiniprogramRoot": "miniprogram/",
+    "appid": "wx52a091e544d4df1c",
+    "libVersion": "3.1.2",
+    "editorSetting": {
+        "tabIndent": "tab",
+        "tabSize": 2
+    },
+    "condition": {}
 }

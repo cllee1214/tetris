@@ -1,4 +1,4 @@
-import { I, L, O, S, ShapeCollection } from "./shapes/index"
+import { I, J, L, O, S, ShapeCollection, T } from "./shapes/index"
 import { Block } from "./shapes/shape"
 
 interface GameConfig {
@@ -74,8 +74,8 @@ class Game {
 		this.clearScoreRow(clearRowIndexs)
 	}
 	makeRandomShape() {
-		const constructors = [S, O, I, L]
-		// const constructors = [L]
+		const constructors = [S, O, I, L, T, J]
+		// const constructors = [J]
 		const index = Math.floor(Math.random() * constructors.length)
 		const C = constructors[index]
 		const shape = new C({ x: 3, y: 5 }, { width: 10, height: 20 })
