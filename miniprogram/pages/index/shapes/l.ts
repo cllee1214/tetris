@@ -4,7 +4,8 @@ class L extends Shape {
 	constructor(origin: OriginPoint, zone: Zone) {
 		super(origin, zone)
 		this.forms = this.makeForms(origin)
-	}
+    }
+    readonly name = 'L'
 	makeForms(origin: OriginPoint) {
 		const { x, y } = origin
 		/**

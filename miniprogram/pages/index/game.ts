@@ -1,3 +1,4 @@
+import { Colors } from "./config"
 import { I, J, L, O, S, ShapeCollection, T } from "./shapes/index"
 import { Block } from "./shapes/shape"
 
@@ -48,7 +49,7 @@ class Game {
 			const row = this.blocks[index]
 			row.forEach(item => {
 				item.status = 0
-				item.bg = '#fff'
+				item.bg = Colors.FFF
 			})
 
 			for (let i = 0; i < this.gameConfig.col; i++) {
@@ -81,7 +82,11 @@ class Game {
 		const shape = new C({ x: 3, y: 5 }, { width: 10, height: 20 })
 		shape.init()
 		return shape
-	}
+    }
+    getCurrentShpeColor() {
+        const name = this.currentShape?.name || 'FFF'
+        return Colors[name]
+    }
 	renderShape(shape: ShapeCollection) {
 		this.currentShape = shape
 		const active = shape.active
@@ -91,7 +96,7 @@ class Game {
 			const block = this.blocksMap.get(key)
 			if (block) {
 				block.status = active ? 1 : 2
-				block.bg = active ? 'red' : 'gray'
+				block.bg = active ? this.getCurrentShpeColor() : Colors.FIXED
 			}
 		})
 		this.page.setData({ blocks: this.blocks })
@@ -102,7 +107,7 @@ class Game {
 			row.forEach((block, x) => {
 				if (block.status === 1) {
 					block.status = 0
-					block.bg = '#fff'
+					block.bg = Colors.FFF
 				}
 			})
 		})
@@ -143,7 +148,7 @@ class Game {
 			const key = item[1] + '-' + item[0]
 			const block = this.blocksMap.get(key)
 			if (block) {
-				block.bg = 'gray'
+				block.bg = Colors.FIXED
 				block.status = 2
 				this.fixedBlocksMap.set(key, true)
 			}

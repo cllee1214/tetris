@@ -1,12 +1,18 @@
+
+import { Colors, StatusConfig } from "../config"
 import Game from "../game"
 
-type Status = 0 | 1 | 2
+type ValueOf<T> = T[keyof T]
+
+type Status = ValueOf<typeof StatusConfig>
+
 export interface Block {
 	x: number,
 	y: number,
 	key: string,
-	status: Status,
-	bg: 'red' | '#fff' | 'gray'
+    status: Status,
+    bg: ValueOf<typeof Colors>
+	// bg: 'red' | '#fff' | 'gray'
 }
 
 export interface OriginPoint {
