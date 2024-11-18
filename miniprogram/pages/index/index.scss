@@ -3,14 +3,19 @@
 
 	.row {
 		display: flex;
-		justify-content: center;
+        justify-content: center;
+        height: 5%;
 	}
-
+    .board{
+        width: 400rpx;
+        height: 800rpx;
+        border: 1px solid #ccc
+    }
 	.block {
-		border: 1px solid #ccc;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
         width: 10%;
-        height: 30px;
-		// aspect-ratio: 1;
+        height: 100%;
 	}
 }
 
